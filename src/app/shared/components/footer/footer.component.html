@@ -1,1 +1,10 @@
-<p>footer works!</p>
+<footer class="footer">
+  <nav class="footer-nav">
+    <a *ngFor="let item of navigationItems" 
+       [routerLink]="item.link" 
+       class="nav-item">
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.label}}</span>
+    </a>
+  </nav>
+</footer>

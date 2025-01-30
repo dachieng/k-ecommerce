@@ -1,5 +1,6 @@
 .products-page {
-  height: 100vh;
+  height: calc(100vh - 64px);
+  padding-bottom: 64px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -8,7 +9,7 @@
 .fixed-header {
   padding: 20px 20px 0;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
 
