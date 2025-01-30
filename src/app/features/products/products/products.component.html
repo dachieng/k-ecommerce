@@ -1,53 +1,57 @@
 <div class="products-page">
-  <div class="search-bar">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search products</mat-label>
-      <input matInput type="text" (input)="onSearch($event)">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-  </div>
-
-  <div class="categories-header">
-    <div class="title-section">
-      <h2>Categories</h2>
-      <a routerLink="/categories" class="view-all">View all</a>
+  <div class="fixed-header">
+    <div class="search-bar">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search products</mat-label>
+        <input matInput type="text" (input)="onSearch($event)" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
     </div>
 
-    <div class="categories-scroll">
-      <button
-        mat-button
-        [class.active]="(selectedCategory$ | async) === 'all'"
-        (click)="selectCategory('all')"
-      >
-        All
-      </button>
-
-      <button
-        mat-button
-        *ngFor="let category of categories$ | async"
-        [class.active]="(selectedCategory$ | async) === category.id"
-        (click)="selectCategory(category.id)"
-      >
-        {{ category.name }}
-      </button>
-    </div>
-  </div>
-
-  <ng-container *ngIf="productsByCategory$ | async as categories">
-    <ng-container *ngFor="let category of categories">
-      <div class="category-section">
-        <div
-          class="category-header"
-          *ngIf="(selectedCategory$ | async) === 'all'"
-        >
-          <h3>{{ category.name }}</h3>
-          <button class="view-all" (click)="selectCategory(category.id)">
-            View all
-          </button>
-        </div>
-
-        <app-product-grid [products]="category.products"></app-product-grid>
+    <div class="categories-header">
+      <div class="title-section">
+        <h2>Categories</h2>
+        <a routerLink="/categories" class="view-all">View all</a>
       </div>
+
+      <div class="categories-scroll">
+        <button
+          mat-button
+          [class.active]="(selectedCategory$ | async) === 'all'"
+          (click)="selectCategory('all')"
+        >
+          All
+        </button>
+
+        <button
+          mat-button
+          *ngFor="let category of categories$ | async"
+          [class.active]="(selectedCategory$ | async) === category.id"
+          (click)="selectCategory(category.id)"
+        >
+          {{ category.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollable-content">
+    <ng-container *ngIf="productsByCategory$ | async as categories">
+      <ng-container *ngFor="let category of categories">
+        <div class="category-section">
+          <div
+            class="category-header"
+            *ngIf="(selectedCategory$ | async) === 'all'"
+          >
+            <h3>{{ category.name }}</h3>
+            <button class="view-all" (click)="selectCategory(category.id)">
+              View all
+            </button>
+          </div>
+
+          <app-product-grid [products]="category.products"></app-product-grid>
+        </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
 </div>

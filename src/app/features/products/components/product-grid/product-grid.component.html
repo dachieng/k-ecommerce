@@ -1,4 +1,4 @@
-<mat-grid-list cols="5" rowHeight="250px" gutterSize="16" >
+<mat-grid-list cols="5" rowHeight="250px" gutterSize="16">
   <mat-grid-tile *ngFor="let product of products">
     <mat-card class="product-card" [routerLink]="['/products', product.id]">
       <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
@@ -6,13 +6,16 @@
         <h3 class="product-title">{{ product.title }}</h3>
         <div class="card-footer">
           <p class="price">Kes {{ product.price }}</p>
-          <button mat-icon-button color="primary" 
-                  class="add-to-cart-btn"
-                  [matBadge]="getProductQuantity(product.id) | async"
-                  [matBadgeHidden]="(getProductQuantity(product.id) | async) === 0"
-                  matBadgeColor="accent"
-                  matBadgePosition="above after"
-                  (click)="addToCart($event, product)">
+          <button
+            mat-icon-button
+            color="primary"
+            class="add-to-cart-btn"
+            [matBadge]="getProductQuantity(product.id) | async"
+            [matBadgeHidden]="(getProductQuantity(product.id) | async) === 0"
+            matBadgeColor="accent"
+            matBadgePosition="above after"
+            (click)="addToCart($event, product)"
+          >
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
         </div>
