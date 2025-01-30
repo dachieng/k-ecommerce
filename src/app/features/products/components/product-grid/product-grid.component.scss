@@ -41,9 +41,35 @@ img {
   .add-to-cart-btn {
     position: relative;
     z-index: 2;
+    transition: transform 0.2s ease;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    // Style the badge
+    ::ng-deep .mat-badge-content {
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
   }
 }
 
-.add-to-cart-btn:active {
-  transform: scale(0.95);
+// Add a subtle animation when quantity changes
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+::ng-deep .mat-badge-content {
+  animation: badgePulse 0.3s ease-out;
 }

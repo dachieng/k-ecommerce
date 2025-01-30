@@ -8,8 +8,12 @@
           <p class="price">Kes {{ product.price }}</p>
           <button mat-icon-button color="primary" 
                   class="add-to-cart-btn"
+                  [matBadge]="getProductQuantity(product.id) | async"
+                  [matBadgeHidden]="(getProductQuantity(product.id) | async) === 0"
+                  matBadgeColor="accent"
+                  matBadgePosition="above after"
                   (click)="addToCart($event, product)">
-            <mat-icon>shopping_cart</mat-icon>
+            <mat-icon>add_shopping_cart</mat-icon>
           </button>
         </div>
       </mat-card-content>
