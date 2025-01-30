@@ -1,12 +1,25 @@
 <div class="products-page">
-  <mat-tab-group (selectedTabChange)="onCategoryChange($event)">
-    <mat-tab label="All"></mat-tab>
-    <mat-tab
-      *ngFor="let category of categories$ | async"
-      [label]="category.name"
-    >
-    </mat-tab>
-  </mat-tab-group>
+  <div class="categories-header">
+    <div class="title-section">
+      <h2>Categories</h2>
+      <a routerLink="/categories" class="view-all">View all</a>
+    </div>
+    
+    <div class="categories-scroll">
+      <button 
+        mat-button 
+        [class.active]="(selectedCategory$ | async) === 'all'"
+        (click)="selectCategory('all')"
+      >All</button>
+      
+      <button 
+        mat-button
+        *ngFor="let category of categories$ | async"
+        [class.active]="(selectedCategory$ | async) === category.id"
+        (click)="selectCategory(category.id)"
+      >{{ category.name }}</button>
+    </div>
+  </div>
 
   <div class="products-grid">
     <app-product-grid

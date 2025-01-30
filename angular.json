@@ -87,14 +87,14 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
+                "glob": "**/*",   
                 "input": "public"
               }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
-            ],
+            ], 
             "scripts": []
           }
         }

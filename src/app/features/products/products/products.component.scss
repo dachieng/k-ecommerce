@@ -5,3 +5,59 @@
 .products-grid {
   margin-top: 20px;
 }
+
+.categories-header {
+  margin-bottom: 24px;
+}
+
+.title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .view-all {
+    color: #3f51b5;
+    text-decoration: none;
+    font-size: 14px;
+  }
+}
+
+.categories-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px; // For scroll bar spacing
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+
+  // Hide scrollbar but keep functionality
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  button {
+    flex: 0 0 auto;
+    border-radius: 20px;
+    padding: 0 20px;
+    
+    &.active {
+      background-color: #3f51b5;
+      color: white;
+    }
+  }
+}

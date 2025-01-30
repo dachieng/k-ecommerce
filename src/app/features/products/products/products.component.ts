@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import {
   ProductService,
   Product,
@@ -13,15 +15,23 @@ import { map, take } from 'rxjs/operators';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, ProductGridComponent],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    MatButtonModule,
+    ProductGridComponent,
+    RouterLink
+  ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
   categories$: Observable<Category[]>;
   filteredProducts$: Observable<Product[]>;
+  selectedCategory$: Observable<string>;
 
   constructor(private productService: ProductService) {
+    this.selectedCategory$ = this.productService.selectedCategory$;
     this.categories$ = this.productService.getCategories();
 
     this.filteredProducts$ = combineLatest([
@@ -39,13 +49,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onCategoryChange(event: any) {
-    this.categories$.pipe(take(1)).subscribe((categories) => {
-      const categoryId =
-        event.index === 0 ? 'all' : categories[event.index - 1]?.id;
-      if (categoryId) {
-        this.productService.setSelectedCategory(categoryId);
-      }
-    });
+  selectCategory(categoryId: string) {
+    this.productService.setSelectedCategory(categoryId);
   }
 }
