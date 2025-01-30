@@ -73,7 +73,6 @@ export class ProductService {
     );
   }
 
-  // Add to existing methods
 getProductById(id: string): Observable<Product> {
   return this.apollo
     .watchQuery<{ product: Product }>({

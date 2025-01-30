@@ -1,4 +1,12 @@
 <div class="products-page">
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search products</mat-label>
+      <input matInput type="text" (input)="onSearch($event)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
   <div class="categories-header">
     <div class="title-section">
       <h2>Categories</h2>
