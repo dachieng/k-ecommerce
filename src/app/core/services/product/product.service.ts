@@ -66,7 +66,7 @@ export class ProductService {
           ...category,
           products: products
             .filter(product => product.category.id === category.id)
-            .slice(0, selectedCategory === 'all' ? 6 : undefined)
+            .slice(0, selectedCategory === 'all' ? 5 : undefined)
         }));
       })
     );

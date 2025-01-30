@@ -1,9 +1,9 @@
-<mat-grid-list cols="4" rowHeight="400px" gutterSize="16">
+<mat-grid-list cols="5" rowHeight="250px" gutterSize="16" >
   <mat-grid-tile *ngFor="let product of products">
     <mat-card class="product-card">
-      <img mat-card-image [src]="product.images[0]" [alt]="product.title">
+      <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
       <mat-card-content>
-        <h3>{{ product.title }}</h3>
+        <h3 class="product-title">{{ product.title }}</h3>
         <p class="price">Kes {{ product.price }}</p>
       </mat-card-content>
     </mat-card>
