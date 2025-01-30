@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { BehaviorSubject, Observable, map, combineLatest } from 'rxjs';
-import { GET_ALL_CATEGORIES, GET_ALL_PRODUCTS } from '../../graphql/queries';
+import { GET_ALL_CATEGORIES, GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID } from '../../graphql/queries';
 
 export interface Product {
   id: string;
   title: string;
   price: number;
   images: string[];
+  description?: string;
   category: {
     id: string;
     name: string;
@@ -71,4 +72,16 @@ export class ProductService {
       })
     );
   }
+
+  // Add to existing methods
+getProductById(id: string): Observable<Product> {
+  return this.apollo
+    .watchQuery<{ product: Product }>({
+      query: GET_PRODUCT_BY_ID,
+      variables: { id }
+    })
+    .valueChanges.pipe(map((result) => result.data.product));
 }
+}
+
+

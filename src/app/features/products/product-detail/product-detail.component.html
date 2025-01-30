@@ -1,1 +1,35 @@
-<p>product-detail works!</p>
+<div class="product-detail" *ngIf="product$ | async as product">
+  <div class="product-images">
+    <div class="main-image">
+      <img [src]="product.images[0]" [alt]="product.title">
+    </div>
+    <div class="thumbnails">
+      <img *ngFor="let image of product.images" 
+           [src]="image" 
+           [alt]="product.title"
+           class="thumbnail">
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h1 class="product-title">{{ product.title }}</h1>
+    <p class="category">{{ product.category.name }}</p>
+    <p class="description">{{ product.description }}</p>
+    <p class="price">Kes {{ product.price }}</p>
+
+    
+    <div class="quantity-selector">
+      <button mat-icon-button (click)="decreaseQuantity()">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span class="quantity">{{ quantity }}</span>
+      <button mat-icon-button (click)="increaseQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <button mat-raised-button color="primary" class="add-to-cart">
+      Add to Cart
+    </button>
+  </div>
+</div>
