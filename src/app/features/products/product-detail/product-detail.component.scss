@@ -22,7 +22,8 @@
       height: 400px;
       object-fit: contain;
       transition: transform 0.3s ease;
-      
+      border-radius: 1rem;
+
       &:hover {
         transform: scale(1.05);
       }

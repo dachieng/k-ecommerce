@@ -1,7 +1,7 @@
 <div class="product-detail" *ngIf="product$ | async as product">
   <div class="product-images">
     <div class="main-image">
-      <img [src]="product.images[0]" [alt]="product.title">
+      <img [src]="product.images[0]" [alt]="product.title" class="main-image-thumbnail">
     </div>
     <div class="thumbnails">
       <img *ngFor="let image of product.images" 
@@ -41,7 +41,7 @@
       </div>
 
       <div class="action-buttons">
-        <button mat-stroked-button color="primary" class="buy-now">
+        <button mat-stroked-button color="primary" class="buy-now" (click)="addToCart(product)">
           <mat-icon>shopping_cart</mat-icon>
           <span>Add to Cart</span>
         </button>

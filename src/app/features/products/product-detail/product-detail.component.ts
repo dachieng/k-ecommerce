@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductService, Product } from '../../../core/services/product/product.service';
 import { Observable, switchMap } from 'rxjs';
+import { CartService } from '../../../core/services/cart/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,7 +20,8 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) {
     this.product$ = this.route.params.pipe(
       switchMap(params => this.productService.getProductById(params['id']))
@@ -36,5 +38,9 @@ export class ProductDetailComponent implements OnInit {
 
   increaseQuantity(): void {
     this.quantity++;
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product, this.quantity);
   }
 }
