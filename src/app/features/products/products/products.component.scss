@@ -20,23 +20,28 @@
     margin: 0;
     font-weight: 500;
   }
+}
 
-  .view-all {
+.view-all {
     color: #3f51b5;
     text-decoration: none;
     font-size: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+
   }
-}
 
 .categories-scroll {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 8px; // For scroll bar spacing
+  padding-bottom: 8px; 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
 
-  // Hide scrollbar but keep functionality
   &::-webkit-scrollbar {
     height: 4px;
   }
@@ -60,4 +65,11 @@
       color: white;
     }
   }
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }

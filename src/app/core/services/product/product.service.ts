@@ -58,14 +58,15 @@ export class ProductService {
   getProductsGroupedByCategory(): Observable<ProductsByCategory[]> {
     return combineLatest([
       this.getCategories(),
-      this.getProducts()
+      this.getProducts(),
+      this.selectedCategory$
     ]).pipe(
-      map(([categories, products]) => {
+      map(([categories, products, selectedCategory]) => {
         return categories.map(category => ({
           ...category,
           products: products
             .filter(product => product.category.id === category.id)
-            .slice(0, 6) // Limit to 6 products per category
+            .slice(0, selectedCategory === 'all' ? 6 : undefined)
         }));
       })
     );

@@ -4,34 +4,41 @@
       <h2>Categories</h2>
       <a routerLink="/categories" class="view-all">View all</a>
     </div>
-    
+
     <div class="categories-scroll">
-      <button 
-        mat-button 
+      <button
+        mat-button
         [class.active]="(selectedCategory$ | async) === 'all'"
         (click)="selectCategory('all')"
-      >All</button>
-      
-      <button 
+      >
+        All
+      </button>
+
+      <button
         mat-button
         *ngFor="let category of categories$ | async"
         [class.active]="(selectedCategory$ | async) === category.id"
         (click)="selectCategory(category.id)"
-      >{{ category.name }}</button>
+      >
+        {{ category.name }}
+      </button>
     </div>
   </div>
 
   <ng-container *ngIf="productsByCategory$ | async as categories">
     <ng-container *ngFor="let category of categories">
       <div class="category-section">
-        <div class="category-header" *ngIf="(selectedCategory$ | async) === 'all'">
+        <div
+          class="category-header"
+          *ngIf="(selectedCategory$ | async) === 'all'"
+        >
           <h3>{{ category.name }}</h3>
-          <a [routerLink]="['/categories', category.id]" class="view-all">View all</a>
+          <button class="view-all" (click)="selectCategory(category.id)">
+            View all
+          </button>
         </div>
-        
-        <app-product-grid
-          [products]="category.products"
-        ></app-product-grid>
+
+        <app-product-grid [products]="category.products"></app-product-grid>
       </div>
     </ng-container>
   </ng-container>
