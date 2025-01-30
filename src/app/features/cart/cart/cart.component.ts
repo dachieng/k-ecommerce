@@ -2,13 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { CartService, CartItem } from '../../../core/services/cart/cart.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule, 
+    MatButtonModule, 
+    MatIconModule,
+    RouterLink
+  ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
