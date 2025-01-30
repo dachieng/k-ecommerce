@@ -4,7 +4,14 @@
       <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
       <mat-card-content>
         <h3 class="product-title">{{ product.title }}</h3>
-        <p class="price">Kes {{ product.price }}</p>
+        <div class="card-footer">
+          <p class="price">Kes {{ product.price }}</p>
+          <button mat-icon-button color="primary" 
+                  class="add-to-cart-btn"
+                  (click)="addToCart($event, product)">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+        </div>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>

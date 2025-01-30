@@ -3,8 +3,8 @@
   height: 100%;
   margin-bottom: 1rem;
   background-color: white;
+  cursor: pointer;
   transition: box-shadow 0.3s ease;
- 
 }
 
 .price {
@@ -20,4 +20,30 @@ img {
 .product-title {
   font-size: 0.8rem;
   font-weight: 500;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+
+  .price {
+    color: #4caf50;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .add-to-cart-btn {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.add-to-cart-btn:active {
+  transform: scale(0.95);
 }
