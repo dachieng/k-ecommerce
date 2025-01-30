@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, combineLatest } from 'rxjs';
 import { GET_ALL_CATEGORIES, GET_ALL_PRODUCTS } from '../../graphql/queries';
 
 export interface Product {
@@ -17,6 +17,12 @@ export interface Product {
 export interface Category {
   id: string;
   name: string;
+}
+
+export interface ProductsByCategory {
+  id: string;
+  name: string;
+  products: Product[];
 }
 
 @Injectable({
@@ -47,5 +53,21 @@ export class ProductService {
 
   setSelectedCategory(categoryId: string) {
     this.selectedCategorySubject.next(categoryId);
+  }
+
+  getProductsGroupedByCategory(): Observable<ProductsByCategory[]> {
+    return combineLatest([
+      this.getCategories(),
+      this.getProducts()
+    ]).pipe(
+      map(([categories, products]) => {
+        return categories.map(category => ({
+          ...category,
+          products: products
+            .filter(product => product.category.id === category.id)
+            .slice(0, 6) // Limit to 6 products per category
+        }));
+      })
+    );
   }
 }

@@ -21,9 +21,18 @@
     </div>
   </div>
 
-  <div class="products-grid">
-    <app-product-grid
-      [products]="(filteredProducts$ | async) ?? []"
-    ></app-product-grid>
-  </div>
+  <ng-container *ngIf="productsByCategory$ | async as categories">
+    <ng-container *ngFor="let category of categories">
+      <div class="category-section">
+        <div class="category-header" *ngIf="(selectedCategory$ | async) === 'all'">
+          <h3>{{ category.name }}</h3>
+          <a [routerLink]="['/categories', category.id]" class="view-all">View all</a>
+        </div>
+        
+        <app-product-grid
+          [products]="category.products"
+        ></app-product-grid>
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

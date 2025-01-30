@@ -7,6 +7,7 @@ import {
   ProductService,
   Product,
   Category,
+  ProductsByCategory,
 } from '../../../core/services/product/product.service';
 import { ProductGridComponent } from '../components/product-grid/product-grid.component';
 import { Observable, combineLatest } from 'rxjs';
@@ -27,22 +28,20 @@ import { map, take } from 'rxjs/operators';
 })
 export class ProductsComponent implements OnInit {
   categories$: Observable<Category[]>;
-  filteredProducts$: Observable<Product[]>;
+  productsByCategory$: Observable<ProductsByCategory[]>;
   selectedCategory$: Observable<string>;
 
   constructor(private productService: ProductService) {
     this.selectedCategory$ = this.productService.selectedCategory$;
     this.categories$ = this.productService.getCategories();
 
-    this.filteredProducts$ = combineLatest([
-      this.productService.getProducts(),
-      this.productService.selectedCategory$,
+    this.productsByCategory$ = combineLatest([
+      this.productService.getProductsGroupedByCategory(),
+      this.selectedCategory$
     ]).pipe(
-      map(([products, selectedCategory]) => {
-        if (selectedCategory === 'all') return products;
-        return products.filter(
-          (product) => product.category.id === selectedCategory
-        );
+      map(([categoriesWithProducts, selectedCategory]) => {
+        if (selectedCategory === 'all') return categoriesWithProducts;
+        return categoriesWithProducts.filter(cat => cat.id === selectedCategory);
       })
     );
   }
