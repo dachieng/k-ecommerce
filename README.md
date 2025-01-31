@@ -1,6 +1,67 @@
-# ECommerce
+# Modern E-Commerce Platform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+A modern, responsive e-commerce platform built with Angular 19 and Material UI, featuring a clean design and seamless shopping experience.
+
+## Overview
+
+This project is a full-featured e-commerce application that demonstrates modern web development practices and architecture. It includes product browsing, cart management, and checkout functionality with a focus on user experience and performance.
+
+## Technical Stack
+
+### Core Technologies
+
+- **Angular 19.1.0**: Latest version of the Angular framework
+- **TypeScript 5.7**: For type-safe JavaScript development
+- **GraphQL with Apollo Client**: For efficient data fetching
+- **RxJS**: For reactive state management
+
+### UI Framework
+
+- **Angular Material 19.1.2**: Material Design components
+- **SCSS**: For advanced styling capabilities
+- **Responsive Design**: Mobile-first approach
+
+### State Management
+
+- **Apollo Angular**: For GraphQL state management
+- **RxJS BehaviorSubject**: For local state management
+- **Local Storage**: For persistent cart data
+
+### Development Tools
+
+- **Angular CLI 19.1.5**: For project scaffolding and development
+- **Angular DevTools**: For debugging and development
+- **Karma & Jasmine**: For unit testing
+
+## Features
+
+- **Product Catalog**
+
+  - Grid view of products with images
+  - Category filtering
+  - Search functionality
+  - Responsive product cards
+
+- **Shopping Cart**
+
+  - Add/remove items
+  - Quantity adjustment
+  - Persistent cart storage
+  - Real-time total calculation
+
+- **Checkout Process**
+
+  - Order summary
+  - Delivery details form
+  - Form validation
+  - Success confirmation
+
+- **Responsive Design**
+  - Mobile-friendly layout
+  - Adaptive grid system
+  - Touch-friendly interactions
+
+## Project Structure
 
 ## Development server
 
