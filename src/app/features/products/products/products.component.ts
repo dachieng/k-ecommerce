@@ -91,6 +91,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
+    register(); // Make sure Swiper is registered
     const swiperEl = document.querySelector('swiper-container');
     if (!swiperEl) return;
     
@@ -98,6 +99,10 @@ export class ProductsComponent implements OnInit {
       slidesPerView: 3,
       spaceBetween: 30,
       loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false
+      },
       navigation: true,
       pagination: {
         clickable: true
@@ -119,7 +124,6 @@ export class ProductsComponent implements OnInit {
     };
 
     Object.assign(swiperEl, swiperParams);
-    // @ts-ignore - initialize() exists on Swiper element
     swiperEl.initialize();
   }
 

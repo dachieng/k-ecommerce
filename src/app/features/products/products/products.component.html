@@ -8,15 +8,7 @@
       </mat-form-field>
     </div>
 
-    <swiper-container
-      init="false"
-      [slides-per-view]="3"
-      [space-between]="20"
-      [loop]="true"
-      [navigation]="true"
-      [pagination]="true"
-      class="mySwiper"
-    >
+    <swiper-container init="false" class="mySwiper">
       <swiper-slide *ngFor="let image of images">
         <img [src]="image" [alt]="image" class="slide-image" />
       </swiper-slide>
