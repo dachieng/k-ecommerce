@@ -1,136 +1,111 @@
-<div class="checkout-container">
+<div class="checkout-wrapper">
   <ng-container *ngIf="!isSubmitted; else success">
-    <div class="checkout-grid">
-      <!-- Order Summary Column -->
-      <mat-card class="order-summary">
-        <mat-card-header>
-          <mat-card-title>Order Summary</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="order-items">
-            <div class="item" *ngFor="let item of cartItems$ | async">
-              <div class="item-info">
-                <img
-                  [src]="item.product.images[0]"
-                  [alt]="item.product.title"
-                />
-                <div class="item-details">
-                  <h4>{{ item.product.title }}</h4>
-                  <p class="quantity">Quantity: {{ item.quantity }}</p>
-                </div>
-              </div>
-              <p class="price">Kes {{ item.product.price * item.quantity }}</p>
+    <div class="checkout-hero">
+      <div class="brand-logo">
+        <mat-icon>shopping_bag</mat-icon>
+      </div>
+      <h1>Complete Your Purchase</h1>
+      <div class="checkout-progress">
+        <div class="progress-bar">
+          <div class="progress-step completed">
+            <div class="step-indicator">
+              <mat-icon>shopping_cart</mat-icon>
             </div>
+            <span>Cart</span>
           </div>
-
-          <div class="order-total">
-            <div class="subtotal">
-              <span>Subtotal</span>
-              <span>Kes {{ cartTotal$ | async }}</span>
+          <div class="progress-step active">
+            <div class="step-indicator">
+              <mat-icon>local_shipping</mat-icon>
             </div>
-            <div class="shipping">
-              <span>Shipping</span>
-              <span>Free</span>
-            </div>
-            <div class="total">
-              <span>Total</span>
-              <span class="total-amount">Kes {{ cartTotal$ | async }}</span>
-            </div>
+            <span>Shipping</span>
           </div>
-        </mat-card-content>
-      </mat-card>
+          <div class="progress-step">
+            <div class="step-indicator">
+              <mat-icon>payment</mat-icon>
+            </div>
+            <span>Payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <!-- Checkout Form Column -->
-      <mat-card class="checkout-card">
-        <mat-card-header>
-          <mat-card-title>Delivery Details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+    <div class="checkout-content">
+      <div class="checkout-main">
+        <div class="form-section">
           <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline">
-              <mat-label>Full Name</mat-label>
-              <input
-                matInput
-                formControlName="fullName"
-                placeholder="John Doe"
-              />
-              <mat-error
-                *ngIf="checkoutForm.get('fullName')?.hasError('required')"
-              >
-                Full name is required
-              </mat-error>
-            </mat-form-field>
+            <div class="form-section-header">
+              <mat-icon>person_outline</mat-icon>
+              <h2>Personal Details</h2>
+            </div>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="fullName" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" />
+              </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input
-                matInput
-                formControlName="email"
-                type="email"
-                placeholder="john@example.com"
-              />
-              <mat-error
-                *ngIf="checkoutForm.get('email')?.hasError('required')"
-              >
-                Email is required
-              </mat-error>
-              <mat-error *ngIf="checkoutForm.get('email')?.hasError('email')">
-                Please enter a valid email
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Phone Number</mat-label>
-              <input
-                matInput
-                formControlName="phone"
-                placeholder="+254 XXX XXX XXX"
-              />
-              <mat-error
-                *ngIf="checkoutForm.get('phone')?.hasError('required')"
-              >
-                Phone number is required
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
+            <div class="form-section-header">
+              <mat-icon>local_shipping</mat-icon>
+              <h2>Delivery Information</h2>
+            </div>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" />
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Delivery Address</mat-label>
-              <textarea
-                matInput
-                formControlName="address"
-                rows="3"
-                placeholder="Enter your delivery address"
-              ></textarea>
-              <mat-error
-                *ngIf="checkoutForm.get('address')?.hasError('required')"
-              >
-                Address is required
-              </mat-error>
+              <textarea matInput formControlName="address" rows="3"></textarea>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>City</mat-label>
-              <input
-                matInput
-                formControlName="city"
-                placeholder="Enter your city"
-              />
-              <mat-error *ngIf="checkoutForm.get('city')?.hasError('required')">
-                City is required
-              </mat-error>
-            </mat-form-field>
-
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="checkoutForm.invalid"
-            >
-              Place Order
+            <button mat-flat-button color="primary" type="submit" [disabled]="checkoutForm.invalid">
+              Continue to Payment
+              <mat-icon>arrow_forward</mat-icon>
             </button>
           </form>
-        </mat-card-content>
-      </mat-card>
+        </div>
+      </div>
+
+      <div class="checkout-sidebar">
+        <div class="order-summary-card">
+          <h3>Order Summary</h3>
+          <div class="cart-items">
+            <div class="cart-item" *ngFor="let item of cartItems$ | async">
+              <div class="item-image">
+                <img [src]="item.product.images[0]" [alt]="item.product.title">
+                <span class="item-quantity">{{item.quantity}}</span>
+              </div>
+              <div class="item-details">
+                <h4>{{item.product.title}}</h4>
+                <p class="item-price">Kes {{item.product.price * item.quantity}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="summary-details">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>Kes {{cartTotal$ | async}}</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span class="free-shipping">Free</span>
+            </div>
+            <div class="summary-total">
+              <span>Total</span>
+              <span>Kes {{cartTotal$ | async}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </ng-container>
 
