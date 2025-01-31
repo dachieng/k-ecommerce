@@ -63,6 +63,17 @@ This project is a full-featured e-commerce application that demonstrates modern 
 
 ## Project Structure
 
+src/
+├── app/
+│ ├── core/ # Core services and utilities
+│ ├── features/ # Feature modules
+│ │ ├── cart/
+│ │ ├── checkout/
+│ │ └── products/
+│ └── shared/ # Shared components
+├── assets/ # Static assets
+└── styles/ # Global styles
+
 ## Development server
 
 To start a local development server, run:
