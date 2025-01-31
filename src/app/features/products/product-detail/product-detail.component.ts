@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductService, Product } from '../../../core/services/product/product.service';
-import { Observable, switchMap } from 'rxjs';
+import {
+  ProductService,
+  Product,
+} from '../../../core/services/product/product.service';
+import { Observable, switchMap, tap, map } from 'rxjs';
 import { CartService } from '../../../core/services/cart/cart.service';
 
 @Component({
@@ -12,7 +15,7 @@ import { CartService } from '../../../core/services/cart/cart.service';
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
   product$: Observable<Product>;
@@ -24,7 +27,20 @@ export class ProductDetailComponent implements OnInit {
     private cartService: CartService
   ) {
     this.product$ = this.route.params.pipe(
-      switchMap(params => this.productService.getProductById(params['id']))
+      switchMap((params) => this.productService.getProductById(params['id'])),
+      tap((product) => {
+        // Initialize quantity from cart when product loads
+        this.cartService.cartItems$
+          .pipe(
+            tap((items) => {
+              const cartItem = items.find(
+                (item) => item.product.id === product.id
+              );
+              this.quantity = cartItem ? cartItem.quantity : 1;
+            })
+          )
+          .subscribe();
+      })
     );
   }
 
@@ -42,5 +58,14 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addToCart(product, this.quantity);
+  }
+
+  getProductQuantity(productId: string): Observable<number> {
+    return this.cartService.cartItems$.pipe(
+      map((items) => {
+        const item = items.find((i) => i.product.id === productId);
+        return item ? item.quantity : 1;
+      })
+    );
   }
 }

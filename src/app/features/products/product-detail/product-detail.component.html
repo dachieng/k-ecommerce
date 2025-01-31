@@ -1,13 +1,19 @@
 <div class="product-detail" *ngIf="product$ | async as product">
   <div class="product-images">
     <div class="main-image">
-      <img [src]="product.images[0]" [alt]="product.title" class="main-image-thumbnail">
+      <img
+        [src]="product.images[0]"
+        [alt]="product.title"
+        class="main-image-thumbnail"
+      />
     </div>
     <div class="thumbnails">
-      <img *ngFor="let image of product.images" 
-           [src]="image" 
-           [alt]="product.title"
-           class="thumbnail">
+      <img
+        *ngFor="let image of product.images"
+        [src]="image"
+        [alt]="product.title"
+        class="thumbnail"
+      />
     </div>
   </div>
 
@@ -33,7 +39,9 @@
           <button mat-mini-fab color="primary" (click)="decreaseQuantity()">
             <mat-icon>remove</mat-icon>
           </button>
-          <span class="quantity">{{ quantity }}</span>
+          <span class="quantity">{{
+            getProductQuantity(product.id) | async
+          }}</span>
           <button mat-mini-fab color="primary" (click)="increaseQuantity()">
             <mat-icon>add</mat-icon>
           </button>
@@ -41,11 +49,15 @@
       </div>
 
       <div class="action-buttons">
-        <button mat-stroked-button color="primary" class="buy-now" (click)="addToCart(product)">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="buy-now"
+          (click)="addToCart(product)"
+        >
           <mat-icon>shopping_cart</mat-icon>
           <span>Add to Cart</span>
         </button>
-        
       </div>
     </div>
   </div>
