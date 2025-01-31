@@ -10,7 +10,10 @@
           <div class="order-items">
             <div class="item" *ngFor="let item of cartItems$ | async">
               <div class="item-info">
-                <img [src]="item.product.images[0]" [alt]="item.product.title">
+                <img
+                  [src]="item.product.images[0]"
+                  [alt]="item.product.title"
+                />
                 <div class="item-details">
                   <h4>{{ item.product.title }}</h4>
                   <p class="quantity">Quantity: {{ item.quantity }}</p>
@@ -19,7 +22,7 @@
               <p class="price">Kes {{ item.product.price * item.quantity }}</p>
             </div>
           </div>
-          
+
           <div class="order-total">
             <div class="subtotal">
               <span>Subtotal</span>
@@ -46,16 +49,29 @@
           <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline">
               <mat-label>Full Name</mat-label>
-              <input matInput formControlName="fullName" placeholder="John Doe">
-              <mat-error *ngIf="checkoutForm.get('fullName')?.hasError('required')">
+              <input
+                matInput
+                formControlName="fullName"
+                placeholder="John Doe"
+              />
+              <mat-error
+                *ngIf="checkoutForm.get('fullName')?.hasError('required')"
+              >
                 Full name is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email" type="email" placeholder="john@example.com">
-              <mat-error *ngIf="checkoutForm.get('email')?.hasError('required')">
+              <input
+                matInput
+                formControlName="email"
+                type="email"
+                placeholder="john@example.com"
+              />
+              <mat-error
+                *ngIf="checkoutForm.get('email')?.hasError('required')"
+              >
                 Email is required
               </mat-error>
               <mat-error *ngIf="checkoutForm.get('email')?.hasError('email')">
@@ -65,29 +81,51 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Phone Number</mat-label>
-              <input matInput formControlName="phone" placeholder="+254 XXX XXX XXX">
-              <mat-error *ngIf="checkoutForm.get('phone')?.hasError('required')">
+              <input
+                matInput
+                formControlName="phone"
+                placeholder="+254 XXX XXX XXX"
+              />
+              <mat-error
+                *ngIf="checkoutForm.get('phone')?.hasError('required')"
+              >
                 Phone number is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Delivery Address</mat-label>
-              <textarea matInput formControlName="address" rows="3" placeholder="Enter your delivery address"></textarea>
-              <mat-error *ngIf="checkoutForm.get('address')?.hasError('required')">
+              <textarea
+                matInput
+                formControlName="address"
+                rows="3"
+                placeholder="Enter your delivery address"
+              ></textarea>
+              <mat-error
+                *ngIf="checkoutForm.get('address')?.hasError('required')"
+              >
                 Address is required
               </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>City</mat-label>
-              <input matInput formControlName="city" placeholder="Enter your city">
+              <input
+                matInput
+                formControlName="city"
+                placeholder="Enter your city"
+              />
               <mat-error *ngIf="checkoutForm.get('city')?.hasError('required')">
                 City is required
               </mat-error>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit" [disabled]="checkoutForm.invalid">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="checkoutForm.invalid"
+            >
               Place Order
             </button>
           </form>
@@ -104,7 +142,7 @@
             <mat-icon>check_circle</mat-icon>
           </div>
           <h2>Success</h2>
-          <p>Your order has been placed<br>and is being processed</p>
+          <p>Your order has been placed<br />and is being processed</p>
           <button mat-raised-button color="primary" routerLink="/products">
             Got it!
           </button>

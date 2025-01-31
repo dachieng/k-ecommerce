@@ -1,27 +1,54 @@
 <mat-grid-list [cols]="5" rowHeight="400px" gutterSize="16">
-  <mat-grid-tile *ngFor="let product of products">
-    <mat-card class="product-card" [routerLink]="['/products', product.id]">
-      <div class="image-container">
-        <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
-      </div>
-      <mat-card-content>
-        <h3 class="product-title">{{ product.title }}</h3>
-        <div class="card-footer">
-          <p class="price">Kes {{ product.price }}</p>
-          <button
-            mat-icon-button
-            color="primary"
-            class="add-to-cart-btn"
-            [matBadge]="getProductQuantity(product.id) | async"
-            [matBadgeHidden]="(getProductQuantity(product.id) | async) === 0"
-            matBadgeColor="accent"
-            matBadgePosition="above after"
-            (click)="addToCart($event, product)"
-          >
-            <mat-icon>add_shopping_cart</mat-icon>
-          </button>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card class="product-card" [routerLink]="['/products', product.id]">
+        <div class="image-container">
+          <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
         </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
+        <mat-card-content>
+          <h3 class="product-title">{{ product.title }}</h3>
+          <div class="card-footer">
+            <p class="price">Kes {{ product.price }}</p>
+            <button
+              mat-icon-button
+              color="primary"
+              class="add-to-cart-btn"
+              [matBadge]="getProductQuantity(product.id) | async"
+              [matBadgeHidden]="(getProductQuantity(product.id) | async) === 0"
+              matBadgeColor="accent"
+              matBadgePosition="above after"
+              (click)="addToCart($event, product)"
+            >
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </ng-container>
+
+  <ng-template #loadingTemplate>
+    <mat-grid-tile *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <mat-card class="product-card skeleton">
+        <div class="image-container">
+          <ngx-skeleton-loader [theme]="{ height: '200px', width: '100%' }">
+          </ngx-skeleton-loader>
+        </div>
+        <mat-card-content>
+          <ngx-skeleton-loader
+            [theme]="{ height: '20px', width: '80%', margin: '10px 0' }"
+          >
+          </ngx-skeleton-loader>
+          <div class="card-footer">
+            <ngx-skeleton-loader [theme]="{ height: '20px', width: '60px' }">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader
+              [theme]="{ height: '40px', width: '40px', borderRadius: '50%' }"
+            >
+            </ngx-skeleton-loader>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </ng-template>
 </mat-grid-list>

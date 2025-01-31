@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { BehaviorSubject, Observable, map, combineLatest } from 'rxjs';
-import { GET_ALL_CATEGORIES, GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID } from '../../graphql/queries';
+import {
+  BehaviorSubject,
+  Observable,
+  map,
+  combineLatest,
+  finalize,
+} from 'rxjs';
+import {
+  GET_ALL_CATEGORIES,
+  GET_ALL_PRODUCTS,
+  GET_PRODUCT_BY_ID,
+} from '../../graphql/queries';
 
 export interface Product {
   id: string;
@@ -31,8 +41,10 @@ export interface ProductsByCategory {
 })
 export class ProductService {
   private selectedCategorySubject = new BehaviorSubject<string>('all');
+  private loadingSubject = new BehaviorSubject<boolean>(false);
 
   selectedCategory$ = this.selectedCategorySubject.asObservable();
+  loading$ = this.loadingSubject.asObservable();
 
   constructor(private apollo: Apollo) {}
 
@@ -45,11 +57,15 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
+    this.loadingSubject.next(true);
     return this.apollo
       .watchQuery<{ products: Product[] }>({
         query: GET_ALL_PRODUCTS,
       })
-      .valueChanges.pipe(map((result) => result.data.products));
+      .valueChanges.pipe(
+        map((result) => result.data.products),
+        finalize(() => this.loadingSubject.next(false))
+      );
   }
 
   setSelectedCategory(categoryId: string) {
@@ -60,27 +76,25 @@ export class ProductService {
     return combineLatest([
       this.getCategories(),
       this.getProducts(),
-      this.selectedCategory$
+      this.selectedCategory$,
     ]).pipe(
       map(([categories, products, selectedCategory]) => {
-        return categories.map(category => ({
+        return categories.map((category) => ({
           ...category,
           products: products
-            .filter(product => product.category.id === category.id)
-            .slice(0, selectedCategory === 'all' ? 5 : undefined)
+            .filter((product) => product.category.id === category.id)
+            .slice(0, selectedCategory === 'all' ? 5 : undefined),
         }));
       })
     );
   }
 
-getProductById(id: string): Observable<Product> {
-  return this.apollo
-    .watchQuery<{ product: Product }>({
-      query: GET_PRODUCT_BY_ID,
-      variables: { id }
-    })
-    .valueChanges.pipe(map((result) => result.data.product));
+  getProductById(id: string): Observable<Product> {
+    return this.apollo
+      .watchQuery<{ product: Product }>({
+        query: GET_PRODUCT_BY_ID,
+        variables: { id },
+      })
+      .valueChanges.pipe(map((result) => result.data.product));
+  }
 }
-}
-
-

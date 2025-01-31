@@ -10,24 +10,27 @@ import { Product } from '../../../../core/services/product/product.service';
 import { CartService } from '../../../../core/services/cart/cart.service';
 import { Observable, map } from 'rxjs';
 import { CartItem } from '../../../../core/services/cart/cart.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-product-grid',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatGridListModule, 
-    MatCardModule, 
-    RouterLink, 
+    CommonModule,
+    MatGridListModule,
+    MatCardModule,
+    RouterLink,
     MatIconModule,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.scss'],
 })
 export class ProductGridComponent implements OnInit {
   @Input() products: Product[] = [];
+  @Input() loading = false;
   readonly cartItems$: Observable<CartItem[]>;
 
   constructor(private cartService: CartService) {
@@ -38,8 +41,8 @@ export class ProductGridComponent implements OnInit {
 
   getProductQuantity(productId: string): Observable<number> {
     return this.cartItems$.pipe(
-      map(items => {
-        const item = items.find(i => i.product.id === productId);
+      map((items) => {
+        const item = items.find((i) => i.product.id === productId);
         return item ? item.quantity : 0;
       })
     );
