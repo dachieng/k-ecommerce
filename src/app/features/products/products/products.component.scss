@@ -239,8 +239,8 @@
 
 swiper-container {
   width: 100%;
-  height: 200px;
-  margin-bottom: 2rem;
+  height: 180px;
+  margin-bottom: 1.5rem;
   --swiper-theme-color: #ff8f00;
   --swiper-navigation-color: #ff8f00;
   --swiper-pagination-color: #ff8f00;
@@ -270,6 +270,6 @@ swiper-container {
 
 @media (max-width: 768px) {
   swiper-container {
-    height: 150px;
+    height: 120px;
   }
 }

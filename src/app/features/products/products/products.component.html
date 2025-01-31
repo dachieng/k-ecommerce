@@ -1,17 +1,4 @@
 <div class="products-page">
-  <swiper-container
-    init="false"
-    [slides-per-view]="3"
-    [space-between]="20"
-    [loop]="true"
-    [navigation]="true"
-    [pagination]="true"
-    class="mySwiper"
-  >
-    <swiper-slide *ngFor="let image of images">
-      <img [src]="image" [alt]="image" class="slide-image" />
-    </swiper-slide>
-  </swiper-container>
   <div class="fixed-header">
     <div class="search-bar">
       <mat-form-field appearance="outline" class="search-field">
@@ -20,6 +7,20 @@
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
+
+    <swiper-container
+      init="false"
+      [slides-per-view]="3"
+      [space-between]="20"
+      [loop]="true"
+      [navigation]="true"
+      [pagination]="true"
+      class="mySwiper"
+    >
+      <swiper-slide *ngFor="let image of images">
+        <img [src]="image" [alt]="image" class="slide-image" />
+      </swiper-slide>
+    </swiper-container>
 
     <div class="categories-header">
       <div class="title-section">
