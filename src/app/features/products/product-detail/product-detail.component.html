@@ -36,13 +36,21 @@
       <div class="quantity-controls">
         <span class="label">Quantity</span>
         <div class="quantity-selector">
-          <button mat-mini-fab color="primary" (click)="decreaseQuantity()">
+          <button
+            mat-mini-fab
+            color="primary"
+            (click)="decreaseQuantity(product.id)"
+          >
             <mat-icon>remove</mat-icon>
           </button>
           <span class="quantity">{{
             getProductQuantity(product.id) | async
           }}</span>
-          <button mat-mini-fab color="primary" (click)="increaseQuantity()">
+          <button
+            mat-mini-fab
+            color="primary"
+            (click)="increaseQuantity(product.id)"
+          >
             <mat-icon>add</mat-icon>
           </button>
         </div>
