@@ -1,14 +1,115 @@
-<div class="success-container">
-  <mat-card class="success-card">
-    <mat-card-content>
-      <div class="success-icon">
-        <mat-icon>check_circle</mat-icon>
-      </div>
-      <h2>Success</h2>
-      <p>Your order has been placed<br>and is being processed</p>
-      <button mat-raised-button color="primary" routerLink="/products">
-        Got it!
-      </button>
-    </mat-card-content>
-  </mat-card>
+<div class="checkout-container">
+  <ng-container *ngIf="!isSubmitted; else success">
+    <div class="checkout-grid">
+      <!-- Order Summary Column -->
+      <mat-card class="order-summary">
+        <mat-card-header>
+          <mat-card-title>Order Summary</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="order-items">
+            <div class="item" *ngFor="let item of cartItems$ | async">
+              <div class="item-info">
+                <img [src]="item.product.images[0]" [alt]="item.product.title">
+                <div class="item-details">
+                  <h4>{{ item.product.title }}</h4>
+                  <p class="quantity">Quantity: {{ item.quantity }}</p>
+                </div>
+              </div>
+              <p class="price">Kes {{ item.product.price * item.quantity }}</p>
+            </div>
+          </div>
+          
+          <div class="order-total">
+            <div class="subtotal">
+              <span>Subtotal</span>
+              <span>Kes {{ cartTotal$ | async }}</span>
+            </div>
+            <div class="shipping">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+            <div class="total">
+              <span>Total</span>
+              <span class="total-amount">Kes {{ cartTotal$ | async }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Checkout Form Column -->
+      <mat-card class="checkout-card">
+        <mat-card-header>
+          <mat-card-title>Delivery Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="fullName" placeholder="John Doe">
+              <mat-error *ngIf="checkoutForm.get('fullName')?.hasError('required')">
+                Full name is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="john@example.com">
+              <mat-error *ngIf="checkoutForm.get('email')?.hasError('required')">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="checkoutForm.get('email')?.hasError('email')">
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phone" placeholder="+254 XXX XXX XXX">
+              <mat-error *ngIf="checkoutForm.get('phone')?.hasError('required')">
+                Phone number is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Delivery Address</mat-label>
+              <textarea matInput formControlName="address" rows="3" placeholder="Enter your delivery address"></textarea>
+              <mat-error *ngIf="checkoutForm.get('address')?.hasError('required')">
+                Address is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="Enter your city">
+              <mat-error *ngIf="checkoutForm.get('city')?.hasError('required')">
+                City is required
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="checkoutForm.invalid">
+              Place Order
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <ng-template #success>
+    <div class="success-container">
+      <mat-card class="success-card">
+        <mat-card-content>
+          <div class="success-icon">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <h2>Success</h2>
+          <p>Your order has been placed<br>and is being processed</p>
+          <button mat-raised-button color="primary" routerLink="/products">
+            Got it!
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
 </div>
