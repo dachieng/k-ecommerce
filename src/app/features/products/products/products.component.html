@@ -37,21 +37,45 @@
 
   <div class="scrollable-content">
     <ng-container *ngIf="productsByCategory$ | async as categories">
-      <ng-container *ngFor="let category of categories">
-        <div class="category-section">
-          <div
-            class="category-header"
-            *ngIf="(selectedCategory$ | async) === 'all'"
-          >
-            <h3>{{ category.name }}</h3>
-            <button class="view-all" (click)="selectCategory(category.id)">
-              View all
+      <ng-container *ngIf="categories.length > 0; else noProducts">
+        <ng-container *ngFor="let category of categories">
+          <div class="category-section">
+            <div
+              class="category-header"
+              *ngIf="(selectedCategory$ | async) === 'all'"
+            >
+              <h3>{{ category.name }}</h3>
+              <button class="view-all" (click)="selectCategory(category.id)">
+                View all
+              </button>
+            </div>
+
+            <app-product-grid [products]="category.products"></app-product-grid>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #noProducts>
+        <div class="no-products-container">
+          <div class="no-products-content">
+            <mat-icon class="no-results-icon">search_off</mat-icon>
+            <h2>No Products Found</h2>
+            <p>We couldn't find any products matching your criteria</p>
+            <div class="suggestions">
+              <h3>Suggestions:</h3>
+              <ul>
+                <li>Check your spelling</li>
+                <li>Try using more general keywords</li>
+                <li>Try searching in a different category</li>
+              </ul>
+            </div>
+            <button mat-raised-button color="primary" (click)="selectCategory('all')">
+              <mat-icon>refresh</mat-icon>
+              Reset Filters
             </button>
           </div>
-
-          <app-product-grid [products]="category.products"></app-product-grid>
         </div>
-      </ng-container>
+      </ng-template>
     </ng-container>
   </div>
 </div>

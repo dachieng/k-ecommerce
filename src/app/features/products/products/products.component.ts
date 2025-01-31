@@ -15,6 +15,7 @@ import {
 import { ProductGridComponent } from '../components/product-grid/product-grid.component';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -39,9 +40,19 @@ export class ProductsComponent implements OnInit {
   private searchQuerySubject = new BehaviorSubject<string>('');
   searchQuery$ = this.searchQuerySubject.asObservable();
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {
     this.selectedCategory$ = this.productService.selectedCategory$;
     this.categories$ = this.productService.getCategories();
+
+    // Initialize category from URL params
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      if (params['category']) {
+        this.productService.setSelectedCategory(params['category']);
+      }
+    });
 
     this.productsByCategory$ = combineLatest([
       this.productService.getProductsGroupedByCategory(),
