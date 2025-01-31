@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="5" rowHeight="400px" gutterSize="16">
+<mat-grid-list [cols]="cols" rowHeight="350px" gutterSize="16">
   <ng-container *ngIf="!loading; else loadingTemplate">
     <mat-grid-tile *ngFor="let product of products">
       <mat-card class="product-card" [routerLink]="['/products', product.id]">

@@ -32,12 +32,30 @@ export class ProductGridComponent implements OnInit {
   @Input() products: Product[] = [];
   @Input() loading = false;
   readonly cartItems$: Observable<CartItem[]>;
+  cols: number = 5;
 
   constructor(private cartService: CartService) {
     this.cartItems$ = this.cartService.cartItems$;
+    this.updateGridCols();
+    window.addEventListener('resize', () => this.updateGridCols());
   }
 
   ngOnInit() {}
+
+  private updateGridCols() {
+    const width = window.innerWidth;
+    if (width <= 480) {
+      this.cols = 1;
+    } else if (width <= 768) {
+      this.cols = 2;
+    } else if (width <= 960) {
+      this.cols = 3;
+    } else if (width <= 1200) {
+      this.cols = 4;
+    } else {
+      this.cols = 5;
+    }
+  }
 
   getProductQuantity(productId: string): Observable<number> {
     return this.cartItems$.pipe(

@@ -21,7 +21,7 @@
   }
 
   .image-container {
-    height: 200px;
+    height: 150px;
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -103,30 +103,6 @@
 
 ::ng-deep .mat-badge-content {
   animation: badgePulse 0.3s ease-out;
-}
-
-@media (max-width: 1200px) {
-  :host ::ng-deep mat-grid-list {
-    grid-template-columns: repeat(4, 1fr) !important;
-  }
-}
-
-@media (max-width: 960px) {
-  :host ::ng-deep mat-grid-list {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-
-@media (max-width: 768px) {
-  :host ::ng-deep mat-grid-list {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  :host ::ng-deep mat-grid-list {
-    grid-template-columns: repeat(1, 1fr) !important;
-  }
 }
 
 .skeleton {
