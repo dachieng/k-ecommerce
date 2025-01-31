@@ -19,7 +19,7 @@
 
   mat-card-header {
     padding: 1.5rem 1.5rem 0;
-    
+
     mat-card-title {
       font-size: 1.5rem;
       font-weight: 500;
@@ -83,12 +83,14 @@
   padding-top: 1rem;
   border-top: 2px solid #eee;
 
-  .subtotal, .shipping, .total {
+  .subtotal,
+  .shipping,
+  .total {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0;
-    
+
     span {
       font-size: 1rem;
       color: #666;
@@ -119,7 +121,7 @@
 
   mat-card-header {
     padding: 1.5rem 1.5rem 0;
-    
+
     mat-card-title {
       font-size: 1.5rem;
       font-weight: 500;
