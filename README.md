@@ -36,21 +36,30 @@ This project is a full-featured e-commerce application that demonstrates modern 
 ## Features
 
 - **Product Catalog**
-
   - Grid view of products with images
   - Category filtering
   - Search functionality
   - Responsive product cards
 
-- **Shopping Cart**
+- **Product Details**
+  - High-resolution product images with thumbnails
+  - Image gallery with hover zoom effect
+  - Detailed product descriptions
+  - Category classification
+  - Dynamic pricing display
+  - Quantity selector
+  - Add to cart functionality
+  - Responsive layout for all devices
+  - Real-time stock status
+  - Related products suggestions
 
+- **Shopping Cart**
   - Add/remove items
   - Quantity adjustment
   - Persistent cart storage
   - Real-time total calculation
 
 - **Checkout Process**
-
   - Order summary
   - Delivery details form
   - Form validation
