@@ -1,7 +1,9 @@
-<mat-grid-list cols="5" rowHeight="250px" gutterSize="16">
+<mat-grid-list [cols]="5" rowHeight="400px" gutterSize="16">
   <mat-grid-tile *ngFor="let product of products">
     <mat-card class="product-card" [routerLink]="['/products', product.id]">
-      <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
+      <div class="image-container">
+        <img mat-card-image [src]="product.images[0]" [alt]="product.title" />
+      </div>
       <mat-card-content>
         <h3 class="product-title">{{ product.title }}</h3>
         <div class="card-footer">
